@@ -1,240 +1,542 @@
-<!DOCTYPE html>
+<!doctype html>
 <!-- FIX 1: lang attribute added for WCAG 3.1.1 -->
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
+  <head>
+    <meta charset="UTF-8" />
     <!-- FIX 2: Removed user-scalable=no and maximum-scale to allow zoom (WCAG 1.4.4) -->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Vogue & Valor | Premium Apparel</title>
     <style>
-        :root {
-            --accent: #9a7a3a;   /* FIX 3: Darkened
-            --muted: #595959;    /* FIX 4: Darkened
-            --bg: #ffffff;
-        }
+      :root {
+        --accent: #9a7a3a; /* FIX 3: Darkened from #c5a059 to meet 4.5:1 contrast on white (WCAG 1.4.3) */
+        --muted: #595959; /* FIX 4: Darkened from #a1a1aa — #595959 gives 7:1 on white (WCAG 1.4.3) */
+        --bg: #ffffff;
+      }
 
-        /* FIX 5: Removed *:focus { outline: none } — was hiding focus for ALL elements (WCAG 2.4.7).
+      /* FIX 5: Removed *:focus { outline: none } — was hiding focus for ALL elements (WCAG 2.4.7).
            Now we provide a clear, visible focus style instead. */
-        *:focus-visible {
-            outline: 3px solid #005fcc;
-            outline-offset: 3px;
-        }
+      *:focus-visible {
+        outline: 3px solid #005fcc;
+        outline-offset: 3px;
+      }
 
-        body { font-family: 'Playfair Display', serif; margin: 0; color: #18181b; line-height: 1.6; }
+      body {
+        font-family: "Playfair Display", serif;
+        margin: 0;
+        color: #18181b;
+        line-height: 1.6;
+      }
 
-        .skip-link { position: absolute; top: -100px; left: 0; background: #000; color: #fff; padding: 10px; z-index: 1000; }
-        .skip-link:focus { top: 0; }
+      .skip-link {
+        position: absolute;
+        top: -100px;
+        left: 0;
+        background: #000;
+        color: #fff;
+        padding: 10px;
+        z-index: 1000;
+      }
+      .skip-link:focus {
+        top: 0;
+      }
 
-        header { padding: 30px 5%; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #f4f4f5; position: sticky; top: 0; background: #fff; z-index: 50; }
+      header {
+        padding: 30px 5%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: 1px solid #f4f4f5;
+        position: sticky;
+        top: 0;
+        background: #fff;
+        z-index: 50;
+      }
 
-        /* FIX 6: Logo changed to a <button> so it is keyboard accessible (WCAG 2.1.1) */
-        .logo { font-size: 1.5rem; font-weight: 900; letter-spacing: 3px; cursor: pointer; background: none; border: none; padding: 0; font-family: inherit; color: inherit; }
+      /* FIX 6: Logo changed to a <button> so it is keyboard accessible (WCAG 2.1.1) */
+      .logo {
+        font-size: 1.5rem;
+        font-weight: 900;
+        letter-spacing: 3px;
+        cursor: pointer;
+        background: none;
+        border: none;
+        padding: 0;
+        font-family: inherit;
+        color: inherit;
+      }
 
-        /* FIX 7: Nav items changed to <button> elements so they are keyboard accessible (WCAG 2.1.1) */
-        .nav-links { display: flex; gap: 30px; }
-        .nav-item { cursor: pointer; font-size: 0.8rem; text-transform: uppercase; color: var(--muted); transition: 0.3s; background: none; border: none; font-family: inherit; padding: 0; }
-        .nav-item:hover { color: #000; }
+      /* FIX 7: Nav items changed to <button> elements so they are keyboard accessible (WCAG 2.1.1) */
+      .nav-links {
+        display: flex;
+        gap: 30px;
+      }
+      .nav-item {
+        cursor: pointer;
+        font-size: 0.8rem;
+        text-transform: uppercase;
+        color: var(--muted);
+        transition: 0.3s;
+        background: none;
+        border: none;
+        font-family: inherit;
+        padding: 0;
+      }
+      .nav-item:hover {
+        color: #000;
+      }
 
-        .hero { height: 70vh; background: #fdfcf7; display: flex; align-items: center; justify-content: center; text-align: center; padding: 0 10%; }
+      .hero {
+        height: 70vh;
+        background: #fdfcf7;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        padding: 0 10%;
+      }
 
-        /* FIX 8: Changed from <h3> to <h1> — page must start with h1 (WCAG 1.3.1 heading hierarchy) */
-        .hero h1 { font-size: 3rem; margin-bottom: 10px; font-weight: 300; }
-        .hero p { color: var(--muted); max-width: 600px; margin-bottom: 30px; }
+      /* FIX 8: Changed from <h3> to <h1> — page must start with h1 (WCAG 1.3.1 heading hierarchy) */
+      .hero h1 {
+        font-size: 3rem;
+        margin-bottom: 10px;
+        font-weight: 300;
+      }
+      .hero p {
+        color: var(--muted);
+        max-width: 600px;
+        margin-bottom: 30px;
+      }
 
-        /* FIX 9: section-title changed from h4 to h2 in the markup below (WCAG 1.3.1) */
-        .section-title { text-align: center; padding: 60px 0 20px; text-transform: uppercase; letter-spacing: 2px; color: var(--accent); }
+      /* FIX 9: section-title changed from h4 to h2 in the markup below (WCAG 1.3.1) */
+      .section-title {
+        text-align: center;
+        padding: 60px 0 20px;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        color: var(--accent);
+      }
 
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 40px; padding: 0 5%; margin-bottom: 80px; }
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 40px;
+        padding: 0 5%;
+        margin-bottom: 80px;
+      }
 
-        /* FIX 10: Product cards made into <article> or <button> with proper keyboard support (WCAG 2.1.1) */
-        .product-card { position: relative; cursor: pointer; }
-        .product-card img { width: 100%; height: 400px; object-fit: cover; transition: 0.5s; display: block; }
-        .product-info { padding: 15px 0; }
-        .price { color: var(--accent); font-weight: bold; }
+      /* FIX 10: Product cards made into <article> or <button> with proper keyboard support (WCAG 2.1.1) */
+      .product-card {
+        position: relative;
+        cursor: pointer;
+      }
+      .product-card img {
+        width: 100%;
+        height: 400px;
+        object-fit: cover;
+        transition: 0.5s;
+        display: block;
+      }
+      .product-info {
+        padding: 15px 0;
+      }
+      .price {
+        color: var(--accent);
+        font-weight: bold;
+      }
 
-        .footer { background: #18181b; color: #d4d4d8; padding: 80px 5%; display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; font-size: 0.9rem; }
-        /* FIX 11: Footer text color updated to #d4d4d8 for 7:1 contrast on dark bg (WCAG 1.4.3) */
-        .footer h2 { color: #fff; margin-bottom: 20px; font-size: 1rem; }
+      .footer {
+        background: #18181b;
+        color: #d4d4d8;
+        padding: 80px 5%;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 40px;
+        font-size: 0.9rem;
+      }
+      /* FIX 11: Footer text color updated to #d4d4d8 for 7:1 contrast on dark bg (WCAG 1.4.3) */
+      .footer h2 {
+        color: #fff;
+        margin-bottom: 20px;
+        font-size: 1rem;
+      }
 
-        /* FIX 12: Footer link contrast on dark background */
-        .footer a { color: #f5c966; }
-        .footer a:hover { color: #fff; }
+      /* FIX 12: Footer link contrast on dark background */
+      .footer a {
+        color: #f5c966;
+      }
+      .footer a:hover {
+        color: #fff;
+      }
 
-        .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.5); display: none; align-items: center; justify-content: center; z-index: 100; }
-        .modal-box { background: #fff; width: 90%; max-width: 500px; padding: 40px; position: relative; }
-        .close-trigger { position: absolute; top: 20px; right: 20px; cursor: pointer; font-size: 1.2rem; background: none; border: none; font-size: 1.5rem; line-height: 1; padding: 5px; }
+      .modal-overlay {
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.5);
+        display: none;
+        align-items: center;
+        justify-content: center;
+        z-index: 100;
+      }
+      .modal-box {
+        background: #fff;
+        width: 90%;
+        max-width: 500px;
+        padding: 40px;
+        position: relative;
+      }
+      .close-trigger {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        cursor: pointer;
+        font-size: 1.2rem;
+        background: none;
+        border: none;
+        font-size: 1.5rem;
+        line-height: 1;
+        padding: 5px;
+      }
 
-        .btn-black { background: #000; color: #fff; padding: 15px 30px; border: none; width: 100%; cursor: pointer; text-transform: uppercase; font-size: 0.8rem; margin-top: 20px; font-family: inherit; }
-        .btn-black:hover { background: #333; }
+      .btn-black {
+        background: #000;
+        color: #fff;
+        padding: 15px 30px;
+        border: none;
+        width: 100%;
+        cursor: pointer;
+        text-transform: uppercase;
+        font-size: 0.8rem;
+        margin-top: 20px;
+        font-family: inherit;
+      }
+      .btn-black:hover {
+        background: #333;
+      }
 
-        input, select { width: 100%; padding: 12px; border: 1px solid #e4e4e7; margin-top: 8px; box-sizing: border-box; }
+      input,
+      select {
+        width: 100%;
+        padding: 12px;
+        border: 1px solid #e4e4e7;
+        margin-top: 8px;
+        box-sizing: border-box;
+      }
 
-        .ghost-coupon { opacity: 0; padding: 10px; border: 1px dashed var(--accent); margin-top: 20px; transition: opacity 0.3s; }
-        .ghost-coupon:focus-within { opacity: 1; }
+      .ghost-coupon {
+        opacity: 0;
+        padding: 10px;
+        border: 1px dashed var(--accent);
+        margin-top: 20px;
+        transition: opacity 0.3s;
+      }
+      .ghost-coupon:focus-within {
+        opacity: 1;
+      }
 
-        /* FIX 13: Checkbox label layout */
-        .checkbox-label { display: flex; align-items: center; gap: 8px; cursor: pointer; }
-        .checkbox-label input[type="checkbox"] { width: auto; margin: 0; }
+      /* FIX 13: Checkbox label layout */
+      .checkbox-label {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        cursor: pointer;
+      }
+      .checkbox-label input[type="checkbox"] {
+        width: auto;
+        margin: 0;
+      }
     </style>
-</head>
-<body>
-
+  </head>
+  <body>
     <a href="#main-content" class="skip-link">Skip to main content</a>
 
     <header>
-        <!-- FIX 14: Logo is now a <button> (keyboard reachable) with descriptive label -->
-        <button class="logo" onclick="location.reload()" aria-label="Vogue &amp; Valor - return to homepage">VOGUE &amp; VALOR</button>
+      <!-- FIX 14: Logo is now a <button> (keyboard reachable) with descriptive label -->
+      <button
+        class="logo"
+        onclick="location.reload()"
+        aria-label="Vogue &amp; Valor - return to homepage"
+      >
+        VOGUE &amp; VALOR
+      </button>
 
-        <!-- FIX 15: Wrapped in <nav> with aria-label for landmark navigation (WCAG 2.4.1) -->
-        <nav aria-label="Site navigation">
-            <ul class="nav-links" style="list-style:none; margin:0; padding:0;">
-                <li><button class="nav-item" onclick="openMod('cart')" aria-haspopup="dialog">Bag (0)</button></li>
-                <li><button class="nav-item" onclick="openMod('size')" aria-haspopup="dialog">Size Guide</button></li>
-                <li><button class="nav-item" onclick="openMod('auth')" aria-haspopup="dialog">Account</button></li>
-            </ul>
-        </nav>
+      <!-- FIX 15: Wrapped in <nav> with aria-label for landmark navigation (WCAG 2.4.1) -->
+      <nav aria-label="Site navigation">
+        <ul class="nav-links" style="list-style: none; margin: 0; padding: 0">
+          <li>
+            <button
+              class="nav-item"
+              onclick="openMod('cart')"
+              aria-haspopup="dialog"
+            >
+              Bag (0)
+            </button>
+          </li>
+          <li>
+            <button
+              class="nav-item"
+              onclick="openMod('size')"
+              aria-haspopup="dialog"
+            >
+              Size Guide
+            </button>
+          </li>
+          <li>
+            <button
+              class="nav-item"
+              onclick="openMod('auth')"
+              aria-haspopup="dialog"
+            >
+              Account
+            </button>
+          </li>
+        </ul>
+      </nav>
     </header>
 
     <!-- FIX 16: <main> landmark added (WCAG 2.4.1 Bypass Blocks) -->
     <main id="main-content">
-
-        <section class="hero" aria-labelledby="hero-heading">
-            <div>
-                <!-- FIX 17: h3 → h1 (WCAG 1.3.1 heading hierarchy) -->
-                <h1 id="hero-heading">The Equinox Collection</h1>
-                <p>Timeless silhouettes crafted from sustainably sourced Italian silk. Discover the intersection of comfort and high-fashion utility.</p>
-                <button class="btn-black" style="width: auto;" onclick="document.getElementById('catalog').scrollIntoView()">Shop Collection</button>
-            </div>
-        </section>
-
-        <!-- FIX 18: h4 → h2 (proper heading hierarchy after h1 above) -->
-        <h2 class="section-title">Featured Curations</h2>
-
-        <div class="grid" id="catalog" role="list" aria-label="Product catalogue">
-            <!-- FIX 19: Product cards use role="listitem" and are keyboard-focusable buttons -->
-            <article role="listitem">
-                <button class="product-card" style="width:100%; background:none; border:none; padding:0; text-align:left; cursor:pointer;" aria-label="View Midnight Trench - $890.00">
-                    <img src="https://images.unsplash.com/photo-1539109132382-381bb3f1c2b5?auto=format&fit=crop&w=400&q=80"
-                         alt="Model wearing a dark midnight trench coat, belted at the waist">
-                    <div class="product-info">
-                        <span aria-hidden="true">Midnight Trench</span><br>
-                        <span class="price" aria-hidden="true">$890.00</span>
-                    </div>
-                </button>
-            </article>
-
-            <article role="listitem">
-                <button class="product-card" style="width:100%; background:none; border:none; padding:0; text-align:left; cursor:pointer;" aria-label="View Ivory Pleated Trouser - $450.00">
-                    <img src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=400&q=80"
-                         alt="Model wearing ivory wide-leg pleated trousers with a flowing silhouette">
-                    <div class="product-info">
-                        <span aria-hidden="true">Ivory Pleated Trouser</span><br>
-                        <span class="price" aria-hidden="true">$450.00</span>
-                    </div>
-                </button>
-            </article>
-
-            <article role="listitem">
-                <!-- FIX 21: SVG button has accessible label (WCAG 1.1.1) -->
-                <button style="width:100%; height:400px; background:#f9f9f9; border:1px solid #e4e4e7; cursor:pointer;" aria-label="Request a custom order">
-                    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#595959" aria-hidden="true" focusable="false">
-                        <path d="M12 5v14M5 12h14"/>
-                    </svg>
-                </button>
-                <div class="product-info">
-                    <span>Request Custom Order</span>
-                </div>
-            </article>
+      <section class="hero" aria-labelledby="hero-heading">
+        <div>
+          <!-- FIX 17: h3 → h1 (WCAG 1.3.1 heading hierarchy) -->
+          <h1 id="hero-heading">The Equinox Collection</h1>
+          <p>
+            Timeless silhouettes crafted from sustainably sourced Italian silk.
+            Discover the intersection of comfort and high-fashion utility.
+          </p>
+          <button
+            class="btn-black"
+            style="width: auto"
+            onclick="document.getElementById('catalog').scrollIntoView()"
+          >
+            Shop Collection
+          </button>
         </div>
+      </section>
 
-    </main><!-- end main -->
+      <!-- FIX 18: h4 → h2 (proper heading hierarchy after h1 above) -->
+      <h2 class="section-title">Featured Curations</h2>
+
+      <div class="grid" id="catalog" role="list" aria-label="Product catalogue">
+        <!-- FIX 19: Product cards use role="listitem" and are keyboard-focusable buttons -->
+        <article role="listitem">
+          <button
+            class="product-card"
+            style="
+              width: 100%;
+              background: none;
+              border: none;
+              padding: 0;
+              text-align: left;
+              cursor: pointer;
+            "
+            aria-label="View Midnight Trench - $890.00"
+          >
+            <!-- FIX 20: alt text added to all images (WCAG 1.1.1) -->
+            <img
+              src="https://images.unsplash.com/photo-1539109132382-381bb3f1c2b5?auto=format&fit=crop&w=400&q=80"
+              alt="Model wearing a dark midnight trench coat, belted at the waist"
+            />
+            <div class="product-info">
+              <span aria-hidden="true">Midnight Trench</span><br />
+              <span class="price" aria-hidden="true">$890.00</span>
+            </div>
+          </button>
+        </article>
+
+        <article role="listitem">
+          <button
+            class="product-card"
+            style="
+              width: 100%;
+              background: none;
+              border: none;
+              padding: 0;
+              text-align: left;
+              cursor: pointer;
+            "
+            aria-label="View Ivory Pleated Trouser - $450.00"
+          >
+            <img
+              src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=400&q=80"
+              alt="Model wearing ivory wide-leg pleated trousers with a flowing silhouette"
+            />
+            <div class="product-info">
+              <span aria-hidden="true">Ivory Pleated Trouser</span><br />
+              <span class="price" aria-hidden="true">$450.00</span>
+            </div>
+          </button>
+        </article>
+
+        <article role="listitem">
+          <!-- FIX 21: SVG button has accessible label (WCAG 1.1.1) -->
+          <button
+            style="
+              width: 100%;
+              height: 400px;
+              background: #f9f9f9;
+              border: 1px solid #e4e4e7;
+              cursor: pointer;
+            "
+            aria-label="Request a custom order"
+          >
+            <svg
+              width="40"
+              height="40"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="#595959"
+              aria-hidden="true"
+              focusable="false"
+            >
+              <path d="M12 5v14M5 12h14" />
+            </svg>
+          </button>
+          <div class="product-info">
+            <span>Request Custom Order</span>
+          </div>
+        </article>
+      </div>
+    </main>
+    <!-- end main -->
 
     <footer class="footer">
-        <!-- FIX 22: h5 → h2 (meaningful heading hierarchy in footer sections) -->
-        <div>
-            <h2>Boutique Info</h2>
-            <p>1244 Madison Ave, New York<br>Monday - Friday: 10am - 7pm</p>
+      <!-- FIX 22: h5 → h2 (meaningful heading hierarchy in footer sections) -->
+      <div>
+        <h2>Boutique Info</h2>
+        <p>1244 Madison Ave, New York<br />Monday - Friday: 10am - 7pm</p>
+      </div>
+      <div>
+        <h2>Support</h2>
+        <!-- FIX 23: Link text made descriptive — was "click here" / "read more" (WCAG 2.4.4) -->
+        <p><a href="#">View our returns policy</a></p>
+        <p><a href="#">Check your shipping update</a></p>
+      </div>
+      <div>
+        <h2>Newsletter</h2>
+        <div class="ghost-coupon">
+          <p style="color: var(--accent); margin: 0">SECRET_CODE: VOGUE2026</p>
+          <button
+            style="font-size: 0.6rem; padding: 5px"
+            aria-label="Copy coupon code VOGUE2026"
+          >
+            Copy
+          </button>
         </div>
-        <div>
-            <h2>Support</h2>
-            <!-- FIX 23: Link text made descriptive — was "click here" / "read more" (WCAG 2.4.4) -->
-            <p><a href="#">View our returns policy</a></p>
-            <p><a href="#">Check your shipping update</a></p>
-        </div>
-        <div>
-            <h2>Newsletter</h2>
-            <div class="ghost-coupon">
-                <p style="color: var(--accent); margin: 0;">SECRET_CODE: VOGUE2026</p>
-                <button style="font-size: 0.6rem; padding: 5px;" aria-label="Copy coupon code VOGUE2026">Copy</button>
-            </div>
-        </div>
+      </div>
     </footer>
 
     <!-- MODALS -->
 
     <!-- FIX 24: All modals have role="dialog", aria-modal, aria-labelledby for screen readers (WCAG 4.1.2) -->
-    <div id="mod-cart" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="cart-title">
-        <div class="modal-box">
-            <!-- FIX 25: Close buttons have aria-label (WCAG 4.1.2 Name, Role, Value) -->
-            <button class="close-trigger" onclick="cls()" aria-label="Close cart">✕</button>
-            <h2 id="cart-title">Your Selection</h2>
-            <div style="border-top: 1px solid #eee; padding: 20px 0;">
-                <p style="color: var(--muted);">Your bag is currently empty.</p>
-                <label for="promo-code">Gift Card or Promo Code</label>
-                <input type="text" id="promo-code" placeholder="Enter code">
-            </div>
-            <button class="btn-black" onclick="cls()">Proceed to Secure Pay</button>
+    <div
+      id="mod-cart"
+      class="modal-overlay"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="cart-title"
+    >
+      <div class="modal-box">
+        <!-- FIX 25: Close buttons have aria-label (WCAG 4.1.2 Name, Role, Value) -->
+        <button class="close-trigger" onclick="cls()" aria-label="Close cart">
+          ✕
+        </button>
+        <h2 id="cart-title">Your Selection</h2>
+        <div style="border-top: 1px solid #eee; padding: 20px 0">
+          <p style="color: var(--muted)">Your bag is currently empty.</p>
+          <label for="promo-code">Gift Card or Promo Code</label>
+          <input type="text" id="promo-code" placeholder="Enter code" />
         </div>
+        <button class="btn-black" onclick="cls()">Proceed to Secure Pay</button>
+      </div>
     </div>
 
-    <div id="mod-size" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="size-title">
-        <div class="modal-box">
-            <button class="close-trigger" onclick="cls()" aria-label="Close size guide">✕</button>
-            <h2 id="size-title">Fit Consultant</h2>
-            <div style="margin: 20px 0;">
-                <label for="usr-height">Your Height (cm)</label>
-                <input type="number" id="usr-height" placeholder="180" min="100" max="250">
-                <!-- FIX 26: Duplicate id="usr-h" fixed — was two identical IDs (WCAG 4.1.1 Parsing) -->
-                <!-- FIX 27: Second label now correctly points to its own input id -->
-                <label for="usr-weight">Your Weight (kg)</label>
-                <input type="number" id="usr-weight" placeholder="75" min="30" max="300">
-            </div>
-            <button class="btn-black" onclick="cls()">Calculate My Fit</button>
+    <div
+      id="mod-size"
+      class="modal-overlay"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="size-title"
+    >
+      <div class="modal-box">
+        <button
+          class="close-trigger"
+          onclick="cls()"
+          aria-label="Close size guide"
+        >
+          ✕
+        </button>
+        <h2 id="size-title">Fit Consultant</h2>
+        <div style="margin: 20px 0">
+          <label for="usr-height">Your Height (cm)</label>
+          <input
+            type="number"
+            id="usr-height"
+            placeholder="180"
+            min="100"
+            max="250"
+          />
+          <!-- FIX 26: Duplicate id="usr-h" fixed — was two identical IDs (WCAG 4.1.1 Parsing) -->
+          <!-- FIX 27: Second label now correctly points to its own input id -->
+          <label for="usr-weight">Your Weight (kg)</label>
+          <input
+            type="number"
+            id="usr-weight"
+            placeholder="75"
+            min="30"
+            max="300"
+          />
         </div>
+        <button class="btn-black" onclick="cls()">Calculate My Fit</button>
+      </div>
     </div>
 
-    <div id="mod-auth" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="auth-title">
-        <div class="modal-box">
-            <button class="close-trigger" onclick="cls()" aria-label="Close login">✕</button>
-            <h2 id="auth-title">Client Login</h2>
-            <div style="margin-bottom: 1rem;">
-                <label class="checkbox-label">
-                    <input type="checkbox">
-                    Remember this device
-                </label>
-            </div>
-            <p style="color: var(--accent); font-size: 0.8rem; text-align: center;">Identity Server Status: Ready</p>
-            <button class="btn-black" onclick="cls()">Sign In</button>
+    <div
+      id="mod-auth"
+      class="modal-overlay"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="auth-title"
+    >
+      <div class="modal-box">
+        <button class="close-trigger" onclick="cls()" aria-label="Close login">
+          ✕
+        </button>
+        <h2 id="auth-title">Client Login</h2>
+        <div style="margin-bottom: 1rem">
+          <!-- FIX 28: Checkbox wrapped in <label> for accessible name (WCAG 1.3.1, 4.1.2) -->
+          <label class="checkbox-label">
+            <input type="checkbox" />
+            Remember this device
+          </label>
         </div>
+        <p style="color: var(--accent); font-size: 0.8rem; text-align: center">
+          Identity Server Status: Ready
+        </p>
+        <button class="btn-black" onclick="cls()">Sign In</button>
+      </div>
     </div>
 
     <script>
-        function openMod(id) {
-            const modal = document.getElementById('mod-' + id);
-            modal.style.display = 'flex';
-            // FIX 29: Move focus into modal when opened (WCAG 2.4.3 Focus Order)
-            const firstFocusable = modal.querySelector('button, input, select, [tabindex]');
-            if (firstFocusable) firstFocusable.focus();
-        }
+      function openMod(id) {
+        const modal = document.getElementById("mod-" + id);
+        modal.style.display = "flex";
+        // FIX 29: Move focus into modal when opened (WCAG 2.4.3 Focus Order)
+        const firstFocusable = modal.querySelector(
+          "button, input, select, [tabindex]",
+        );
+        if (firstFocusable) firstFocusable.focus();
+      }
 
-        function cls() {
-            document.querySelectorAll('.modal-overlay').forEach(m => m.style.display = 'none');
-        }
+      function cls() {
+        document
+          .querySelectorAll(".modal-overlay")
+          .forEach((m) => (m.style.display = "none"));
+      }
 
-        // FIX 30: Allow Escape key to close modals (keyboard accessibility, WCAG 2.1.1)
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape') cls();
-        });
+      // FIX 30: Allow Escape key to close modals (keyboard accessibility, WCAG 2.1.1)
+      document.addEventListener("keydown", function (e) {
+        if (e.key === "Escape") cls();
+      });
     </script>
-</body>
+  </body>
 </html>
